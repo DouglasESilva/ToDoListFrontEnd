@@ -24,7 +24,7 @@ const Usuario = () => {
         descricao: '' 
     };
 
-    const [usuarios, setUsuarios] = useState<Projeto.Usuario[]>([]);
+    const [usuarios, setUsuarios] = useState<Projeto.Usuario[] | null>(null);
     const [usuarioDialog, setUsuarioDialog] = useState(false);
     const [deleteUsuarioDialog, setDeleteUsuarioDialog] = useState(false);
     const [deleteUsuariosDialog, setDeleteUsuariosDialog] = useState(false);
@@ -40,7 +40,7 @@ const Usuario = () => {
 
     //Conversa Com BackEnd
     useEffect(() => {
-        if(usuarios.length == 0){
+        if(!usuarios){
             usuarioService.listarTodos()
             .then((response) => {
                 console.log(response.data);
@@ -53,7 +53,6 @@ const Usuario = () => {
 
 
     const openNew = () => {
-        console.log("usuarioVazio", usuarioVazio);
         setUsuario(usuarioVazio);
         setSubmitted(false);
         setUsuarioDialog(true);
@@ -82,7 +81,7 @@ const Usuario = () => {
                 .then((response) => {
                     setUsuarioDialog(false)
                     setUsuario(usuarioVazio)
-                    setUsuarios([])
+                    setUsuarios(null)
                     toast.current?.show({
                         severity: 'info',
                         summary: 'Sucesso',
@@ -102,7 +101,7 @@ const Usuario = () => {
                 .then((response) => {
                     setUsuarioDialog(false)
                     setUsuario(usuarioVazio)
-                    setUsuarios([])
+                    setUsuarios(null)
                     toast.current?.show({
                         severity: 'info',
                         summary: 'Sucesso',
@@ -135,7 +134,7 @@ const Usuario = () => {
                 .then((response) => {
                         setUsuario(usuarioVazio)
                         setDeleteUsuarioDialog(false)
-                        setUsuarios([])
+                        setUsuarios(null)
                         toast.current?.show({
                         severity: 'success',
                         summary: 'Sucesso!',
@@ -167,7 +166,7 @@ const Usuario = () => {
                    
             }
         })).then((responses) => {
-            setUsuarios([])
+            setUsuarios(null)
             setDeleteUsuariosDialog(false)
             setSelectedUsuarios([])
             toast.current?.show({
@@ -188,10 +187,15 @@ const Usuario = () => {
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, name: string) => {
         const val = (e.target && e.target.value) || '';
-        let _usuario = { ...usuario };
-        _usuario[`${name}`] = val;
+        //let _usuario = { ...usuario };
+        //_usuario[`${name}`] = val;
 
-        setUsuario(_usuario);
+        //setUsuario(_usuario);
+
+        setUsuario( prevUsuario => ({
+            ...prevUsuario,
+            [name]: val
+        }));
     };
 
     const leftToolbarTemplate = () => {
