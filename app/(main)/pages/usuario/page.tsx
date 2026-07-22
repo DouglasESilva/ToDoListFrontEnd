@@ -21,7 +21,6 @@ const Usuario = () => {
         login: '',
         email: '',
         senha: '',
-        descricao: '' 
     };
 
     const [usuarios, setUsuarios] = useState<Projeto.Usuario[] | null>(null);
@@ -254,14 +253,6 @@ const Usuario = () => {
         );
     };
 
-    const descricaoBodyTemplate = (rowData: Projeto.Usuario) => {
-        return (
-            <>
-                <span className="p-column-title">Descricão</span>
-                {rowData.descricao}
-            </>
-        );
-    };
 
     // const imageBodyTemplate = (rowData: Demo.Product) => {
     //     return (
@@ -375,7 +366,6 @@ const Usuario = () => {
                         <Column field="nome" header="Nome" sortable body={nomeBodyTemplate} headerStyle={{ minWidth: '15rem' }}></Column>
                         <Column field="login" header="Login" sortable body={loginBodyTemplate} headerStyle={{ minWidth: '15rem' }}></Column>
                         <Column field="email" header="Email" sortable body={emailBodyTemplate} headerStyle={{ minWidth: '15rem' }}></Column>
-                        <Column field="descricao" header="Descrição" sortable body={descricaoBodyTemplate} headerStyle={{ minWidth: '15rem' }}></Column>
                         {/* <Column header="Image" body={imageBodyTemplate}></Column>
                         <Column field="price" header="Price" body={priceBodyTemplate} sortable></Column>
                         <Column field="category" header="Category" sortable body={categoryBodyTemplate} headerStyle={{ minWidth: '10rem' }}></Column>
@@ -429,22 +419,7 @@ const Usuario = () => {
                                 })}
                             />
                             {submitted && !usuario.email && <small className="p-invalid">Email é Obrigatorio.</small>}
-                        </div>                            
-
-                        <div className="field">
-                            <label htmlFor="descricao">Descrição</label>
-                            <InputText
-                                id="email"
-                                value={usuario.descricao}
-                                onChange={(e) => onInputChange(e, 'descricao')}
-                                required
-                                autoFocus
-                                className={classNames({
-                                    'p-invalid': submitted && !usuario.descricao
-                                })}
-                            />
-                            {submitted && !usuario.descricao && <small className="p-invalid">Descrição é Obrigatorio.</small>}
-                        </div>    
+                        </div>   
 
 
                         <div className="field">

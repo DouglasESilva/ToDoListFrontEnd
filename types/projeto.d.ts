@@ -7,7 +7,6 @@ declare namespace Projeto {
             login: string;
             email: string;
             senha: string;
-            descricao: string;
     };
     
     type Recurso = {
@@ -20,6 +19,12 @@ declare namespace Projeto {
     type Perfil = {
         id?: number;
         descricao: string;
+    }
+
+    type PerfilUsuario = {
+        id?: number;
+        perfil: Perfil;
+        usuario: Usuario;
     }
 
 
